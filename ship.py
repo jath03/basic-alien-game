@@ -1,5 +1,5 @@
 import pygame
-from utils import Sprite
+from utils import Sprite, SPEED
 
 
 class Bullet(Sprite):
@@ -9,7 +9,7 @@ class Bullet(Sprite):
         self.y = 480 - 60
 
     def update(self):
-        self.y -= 4
+        self.y -= int(SPEED/3)
         pygame.draw.circle(self.window, (255, 0, 0), self.position, 5)
 
 
@@ -34,9 +34,9 @@ class Ship(Sprite):
     def update(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
-            self.x += 5
+            self.x += SPEED/2
         if keys[pygame.K_LEFT]:
-            self.x -= 5
+            self.x -= SPEED/2
         if keys[pygame.K_SPACE]:
             self.shoot()
         self.window.blit(self.image, self.position)

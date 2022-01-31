@@ -2,17 +2,14 @@ import pygame
 import sys
 from aliens import AlienManager
 from ship import Ship
-
-WIDTH = 640
-HEIGHT = 480
-EXTRA_LIVES = 3
+from utils import WIDTH, HEIGHT
 
 
 class GameManager:
     def __init__(self, window: pygame.Surface):
         self.window = window
         self.ship = Ship(window)
-        self.alien_mgr = AlienManager()
+        self.alien_mgr = AlienManager(window)
 
     def check_collisions(self):
         pass
