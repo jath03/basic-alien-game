@@ -1,7 +1,8 @@
 import pygame
+from utils import Sprite
 
 
-class Alien:
+class Alien(Sprite):
     pass
 
 
