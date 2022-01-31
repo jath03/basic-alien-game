@@ -6,4 +6,5 @@ class Alien:
 
 
 class AlienManager:
-    pass
+    def update(self):
+        pass
