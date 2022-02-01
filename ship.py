@@ -12,7 +12,7 @@ class Bullet(Sprite):
 
     def update(self):
         self.y -= int(SPEED)
-        pygame.draw.circle(self.window, (255, 0, 0), self.position, 5)
+        pygame.draw.circle(self.window, (255, 0, 0), self.position, self.size[0]/2)
 
 
 class Ship(Sprite):

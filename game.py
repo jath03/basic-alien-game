@@ -1,5 +1,4 @@
 import pygame
-import sys
 from aliens import AlienManager
 from ship import Ship
 from utils import WIDTH, HEIGHT
