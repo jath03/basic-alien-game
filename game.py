@@ -10,17 +10,20 @@ class GameManager:
         self.window = window
         self.ship = Ship(window)
         self.alien_mgr = AlienManager(window)
-
-    def check_collisions(self):
-        pass
+        self.done = False
 
     def game_over(self, won: bool):
         pass
 
-    def update(self):
-        self.ship.update()
-        self.alien_mgr.update()
-        self.check_collisions()
+    def update(self) -> bool:
+        if not self.ship.update(self.alien_mgr.aliens):
+            self.game_over(False)
+            return False
+        self.alien_mgr.update(self.ship.bullets)
+        if len(self.alien_mgr.aliens) == 0:
+            self.game_over(True)
+            return False
+        return True
 
 
 if __name__ == '__main__':
@@ -30,14 +33,15 @@ if __name__ == '__main__':
     pygame.display.set_caption("Alien Invasion")
 
     game_mgr = GameManager(window)
+    running = True
 
-    while True:
+    while running:
         for event in pygame.event.get():
             # Checking if window was closed or if q or escape keys were pressed
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and (event.key == pygame.K_q or event.key == pygame.K_ESCAPE)):
-                sys.exit(0)
+                running = False
 
         window.fill(pygame.color.Color(0, 0, 0))
-        game_mgr.update()
+        running = game_mgr.update()
         pygame.display.flip()
         clock.tick(60)
