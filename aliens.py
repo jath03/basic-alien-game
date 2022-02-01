@@ -1,5 +1,5 @@
 import pygame
-from utils import Sprite, SPEED, WIDTH
+from utils import Sprite, SPEED, WIDTH, HEIGHT, check_collisions
 from ship import Bullet
 
 
@@ -28,10 +28,7 @@ class AlienManager:
         self.aliens = [Alien(self.window, i) for i in range(num)]
         self.right = True
 
-    def check_collisions(self, alien: Alien, bullets: list[Bullet]) -> bool:
-        return alien.collision_rect.collidelist([bullet.collision_rect for bullet in bullets]) != -1
-
-    def update(self, bullets: list[Bullet]):
+    def update(self, bullets: list[Bullet]) -> bool:
         should_go_left = max(alien.x for alien in self.aliens) >= (WIDTH - 90)
         should_go_right = min(alien.x for alien in self.aliens) <= 10
         if should_go_left and self.right:
@@ -39,7 +36,8 @@ class AlienManager:
         elif should_go_right and not self.right:
             self.right = True
         for alien in self.aliens:
-            if self.check_collisions(alien, bullets):
+            if check_collisions(alien, bullets):
                 self.aliens.remove(alien)
             alien.update(self.right)
         self.window.blits([(self.alien_image, alien.position) for alien in self.aliens])
+        return not HEIGHT - max(alien.y for alien in self.aliens) <= 80

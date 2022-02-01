@@ -1,5 +1,5 @@
 import pygame
-from utils import Sprite, SPEED
+from utils import Sprite, SPEED, check_collisions
 
 
 class Bullet(Sprite):
@@ -33,7 +33,8 @@ class Ship(Sprite):
             self.bullets.append(Bullet(self.window, self.x + 30))
             self.last_bullet = pygame.time.get_ticks()
 
-    def update(self, aliens: list["Alien"]):
+    def update(self, aliens: list["Alien"]) -> bool:
+        dead = check_collisions(self, aliens)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             self.x += SPEED/2
@@ -44,3 +45,4 @@ class Ship(Sprite):
         self.window.blit(self.image, self.position)
         for bullet in self.bullets:
             bullet.update()
+        return not dead

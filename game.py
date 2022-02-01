@@ -13,13 +13,15 @@ class GameManager:
         self.done = False
 
     def game_over(self, won: bool):
-        pass
+        if won:
+            print("Hooray!")
+        else:
+            print("You suck")
 
     def update(self) -> bool:
-        if not self.ship.update(self.alien_mgr.aliens):
+        if not self.ship.update(self.alien_mgr.aliens) or not self.alien_mgr.update(self.ship.bullets):
             self.game_over(False)
             return False
-        self.alien_mgr.update(self.ship.bullets)
         if len(self.alien_mgr.aliens) == 0:
             self.game_over(True)
             return False
