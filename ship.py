@@ -19,12 +19,12 @@ class Ship(Sprite):
     def __init__(self, window: pygame.Surface):
         self.window = window
         self.size = (60, 60)
-        self.image = pygame.image.load("ship.jpg")
+        self.image = pygame.image.load("ship.png")
         self.image = pygame.transform.scale(self.image, self.size)
 
         # Starting position
         self.x = 640 / 2 - 25
-        self.y = 480 - 50
+        self.y = 480 - 60
 
         self.last_bullet = 0
         self.bullets = []

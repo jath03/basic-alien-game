@@ -1,6 +1,5 @@
 import pygame
 from utils import Sprite, SPEED, WIDTH, HEIGHT, check_collisions
-from ship import Bullet
 from typing import List
 
 
@@ -29,7 +28,7 @@ class AlienManager:
         self.aliens = [Alien(self.window, i) for i in range(num)]
         self.right = True
 
-    def update(self, bullets: List[Bullet]) -> bool:
+    def update(self, bullets: List["Bullet"]) -> bool:
         should_go_left = max(alien.x for alien in self.aliens) >= (WIDTH - 90)
         should_go_right = min(alien.x for alien in self.aliens) <= 10
         if should_go_left and self.right:
