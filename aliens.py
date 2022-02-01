@@ -41,4 +41,7 @@ class AlienManager:
                 self.aliens.remove(alien)
             alien.update(self.right)
         self.window.blits([(self.alien_image, alien.position) for alien in self.aliens])
-        return not HEIGHT - max(alien.y for alien in self.aliens) <= 80
+        try:
+            return not HEIGHT - max(alien.y for alien in self.aliens) <= 80
+        except ValueError:
+            return True
