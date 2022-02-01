@@ -1,5 +1,6 @@
 import pygame
 from utils import Sprite, SPEED, check_collisions
+from typing import List
 
 
 class Bullet(Sprite):
@@ -33,7 +34,7 @@ class Ship(Sprite):
             self.bullets.append(Bullet(self.window, self.x + 30))
             self.last_bullet = pygame.time.get_ticks()
 
-    def update(self, aliens: list["Alien"]) -> bool:
+    def update(self, aliens: List["Alien"]) -> bool:
         dead = check_collisions(self, aliens)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:

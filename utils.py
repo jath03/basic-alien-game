@@ -1,4 +1,5 @@
 import pygame
+from typing import List, Tuple
 
 WIDTH = 640
 HEIGHT = 480
@@ -6,13 +7,13 @@ EXTRA_LIVES = 3
 SPEED = 12
 
 
-def check_collisions(thing, things: list[object]) -> bool:
+def check_collisions(thing, things: List[object]) -> bool:
     return thing.collision_rect.collidelist([other_thing.collision_rect for other_thing in things]) != -1
 
 
 class Sprite:
     @property
-    def position(self) -> tuple[int, int]:
+    def position(self) -> Tuple[int, int]:
         return (self.x, self.y)
 
     @property
