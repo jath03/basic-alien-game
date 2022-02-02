@@ -1,7 +1,7 @@
 import pygame
 from aliens import AlienManager
 from ship import Ship
-from utils import WIDTH, HEIGHT
+from utils import WIDTH, HEIGHT, EXTRA_LIVES
 
 
 class GameManager:
@@ -10,17 +10,30 @@ class GameManager:
         self.ship = Ship(window)
         self.alien_mgr = AlienManager(window)
         self.done = False
+        self.lives_remaining = EXTRA_LIVES
+        self.mini_ship = pygame.transform.scale(self.ship.image, (20, 20))
 
-    def game_over(self, won: bool):
-        print("Hooray!" if won else "You suck")
+    def game_over(self, won: bool) -> bool:
+        if won:
+            print("Hooray!")
+            return False
+        else:
+            if self.lives_remaining > 0:
+                self.alien_mgr.reset()
+                self.ship.reset()
+                self.lives_remaining -= 1
+                return True
+            else:
+                print("You suck")
+                return False
 
     def update(self) -> bool:
+        for i in range(self.lives_remaining):
+            self.window.blit(self.mini_ship, (i * 25 + 5, HEIGHT - 25))
         if not self.ship.update(self.alien_mgr.aliens) or not self.alien_mgr.update(self.ship.bullets):
-            self.game_over(False)
-            return False
+            return self.game_over(False)
         if len(self.alien_mgr.aliens) == 0:
-            self.game_over(True)
-            return False
+            return self.game_over(True)
         return True
 
 
@@ -53,7 +66,7 @@ if __name__ == '__main__':
 
     while running:
         for event in pygame.event.get(pygame.QUIT):
-            # Checking if window was closed or if q or escape keys were pressed
+            # Checking if window was closed
             running = False
 
         window.fill(pygame.color.Color(0, 0, 0))

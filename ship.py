@@ -22,6 +22,9 @@ class Ship(Sprite):
         self.image = pygame.image.load("ship.png")
         self.image = pygame.transform.scale(self.image, self.size)
 
+        self.reset()
+
+    def reset(self):
         # Starting position
         self.x = 640 / 2 - 25
         self.y = 480 - 60

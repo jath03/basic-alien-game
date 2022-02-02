@@ -6,10 +6,14 @@ from typing import List
 class Alien(Sprite):
     def __init__(self, window: pygame.Surface, idx: int):
         self.window = window
+        self.idx = idx
         self.size = (80, 80)
-        self.x = (idx % 8) * 90 + 20
-        self.y = (idx // 8) * 90 + 5
-        if (idx // 8) % 2 == 1:
+        self.reset()
+
+    def reset(self):
+        self.x = (self.idx % 8) * 90 + 20
+        self.y = (self.idx // 8) * 90 + 5
+        if (self.idx // 8) % 2 == 1:
             self.x += 50
 
     def update(self, right: bool):
@@ -27,6 +31,10 @@ class AlienManager:
         self.alien_image = pygame.transform.scale(self.alien_image, (80, 80))
         self.aliens = [Alien(self.window, i) for i in range(num)]
         self.right = True
+
+    def reset(self):
+        for alien in self.aliens:
+            alien.reset()
 
     def update(self, bullets: List["Bullet"]) -> bool:
         should_go_left = max(alien.x for alien in self.aliens) >= (WIDTH - 90)
