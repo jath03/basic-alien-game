@@ -5,9 +5,10 @@ WIDTH = 640
 HEIGHT = 480
 EXTRA_LIVES = 3
 SPEED = 12
+NUM_ALIENS = 4
 
 
-def check_collisions(thing, things: List[object]) -> bool:
+def check_collisions(thing: object, things: List[object]) -> bool:
     return thing.collision_rect.collidelist([other_thing.collision_rect for other_thing in things]) != -1
 
 

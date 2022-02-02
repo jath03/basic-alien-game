@@ -1,7 +1,7 @@
 import pygame
 from aliens import AlienManager
 from ship import Ship
-from utils import WIDTH, HEIGHT, EXTRA_LIVES
+from utils import WIDTH, HEIGHT, EXTRA_LIVES, NUM_ALIENS
 
 
 class GameManager:
@@ -12,6 +12,8 @@ class GameManager:
         self.done = False
         self.lives_remaining = EXTRA_LIVES
         self.mini_ship = pygame.transform.scale(self.ship.image, (20, 20))
+        self.score = 0
+        self.score_font = pygame.font.Font(None, 10)
 
     def game_over(self, won: bool) -> bool:
         if won:
@@ -28,12 +30,14 @@ class GameManager:
                 return False
 
     def update(self) -> bool:
+        window.blit(font.render(f"{self.score}", True, (57, 255, 20)), (5, 5))
         for i in range(self.lives_remaining):
             self.window.blit(self.mini_ship, (i * 25 + 5, HEIGHT - 25))
         if not self.ship.update(self.alien_mgr.aliens) or not self.alien_mgr.update(self.ship.bullets):
             return self.game_over(False)
         if len(self.alien_mgr.aliens) == 0:
             return self.game_over(True)
+        self.score = NUM_ALIENS - len(self.alien_mgr.aliens)
         return True
 
 

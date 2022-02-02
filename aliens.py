@@ -1,5 +1,5 @@
 import pygame
-from utils import Sprite, SPEED, WIDTH, HEIGHT, check_collisions
+from utils import Sprite, SPEED, WIDTH, HEIGHT, NUM_ALIENS, check_collisions
 from typing import List
 
 
@@ -25,7 +25,7 @@ class Alien(Sprite):
 
 
 class AlienManager:
-    def __init__(self, window: pygame.Surface, num: int = 4):
+    def __init__(self, window: pygame.Surface, num: int = NUM_ALIENS):
         self.window = window
         self.alien_image = pygame.image.load("alien.png")
         self.alien_image = pygame.transform.scale(self.alien_image, (80, 80))
