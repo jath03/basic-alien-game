@@ -30,6 +30,7 @@ class GameManager:
                 return False
 
     def update(self) -> bool:
+        self.score = NUM_ALIENS - len(self.alien_mgr.aliens)
         window.blit(font.render(f"{self.score}", True, (57, 255, 20)), (5, 5))
         for i in range(self.lives_remaining):
             self.window.blit(self.mini_ship, (i * 25 + 5, HEIGHT - 25))
@@ -37,7 +38,6 @@ class GameManager:
             return self.game_over(False)
         if len(self.alien_mgr.aliens) == 0:
             return self.game_over(True)
-        self.score = NUM_ALIENS - len(self.alien_mgr.aliens)
         return True
 
 

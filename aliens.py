@@ -11,9 +11,9 @@ class Alien(Sprite):
         self.reset()
 
     def reset(self):
-        self.x = (self.idx % 8) * 90 + 20
-        self.y = (self.idx // 8) * 90 + 5
-        if (self.idx // 8) % 2 == 1:
+        self.x = (self.idx % 5) * 90 + 20
+        self.y = (self.idx // 5) * 90 + 5
+        if (self.idx // 5) % 2 == 1:
             self.x += 50
 
     def update(self, right: bool):
