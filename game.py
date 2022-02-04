@@ -16,6 +16,7 @@ class GameManager:
         self.score_font = pygame.font.Font(None, 10)
 
     def game_over(self, won: bool) -> bool:
+        'Handles the user dying'
         if won:
             print("Hooray!")
             return False
@@ -30,12 +31,17 @@ class GameManager:
                 return False
 
     def update(self) -> bool:
+        # Keep track of score based on # of aliens killed
         self.score = NUM_ALIENS - len(self.alien_mgr.aliens)
+        # Displaying score
         window.blit(font.render(f"{self.score}", True, (57, 255, 20)), (5, 5))
+        # Displaying lives remaining
         for i in range(self.lives_remaining):
             self.window.blit(self.mini_ship, (i * 25 + 5, HEIGHT - 25))
+        # Updating other game components
         if not self.ship.update(self.alien_mgr.aliens) or not self.alien_mgr.update(self.ship.bullets):
             return self.game_over(False)
+        # Checking if player won
         if len(self.alien_mgr.aliens) == 0:
             return self.game_over(True)
         return True
@@ -47,6 +53,7 @@ if __name__ == '__main__':
     window = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Alien Invasion")
 
+    # Rendering a start screen
     font = pygame.font.Font(None, 50)
     window.blit(font.render("Space Invaders", True, (57, 255, 20)), (WIDTH/2 - 120, HEIGHT/2 - 50))
     font2 = pygame.font.Font(None, 25)
@@ -68,6 +75,7 @@ if __name__ == '__main__':
 
     game_mgr = GameManager(window)
 
+    # Main loop
     while running:
         for event in pygame.event.get(pygame.QUIT):
             # Checking if window was closed

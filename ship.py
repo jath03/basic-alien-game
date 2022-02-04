@@ -16,6 +16,7 @@ class Bullet(Sprite):
 
 
 class Ship(Sprite):
+    'A class to represent the player'
     def __init__(self, window: pygame.Surface):
         self.window = window
         self.size = (60, 60)
@@ -33,12 +34,15 @@ class Ship(Sprite):
         self.bullets = []
 
     def shoot(self):
+        'Creates a bullet if it\'s been long enough since the last one'
         if pygame.time.get_ticks() - self.last_bullet > 250:
             self.bullets.append(Bullet(self.window, self.x + 30))
             self.last_bullet = pygame.time.get_ticks()
 
     def update(self, aliens: List["Alien"]) -> bool:
+        # Checks if any aliens have reached the ship
         dead = check_collisions(self, aliens)
+        # Responding to user inputs
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             self.x += SPEED/2
@@ -46,7 +50,9 @@ class Ship(Sprite):
             self.x -= SPEED/2
         if keys[pygame.K_SPACE]:
             self.shoot()
+        # Displaying at the new location
         self.window.blit(self.image, self.position)
+        # Updating bullets
         for bullet in self.bullets:
             bullet.update()
         return not dead
