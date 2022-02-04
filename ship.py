@@ -55,4 +55,6 @@ class Ship(Sprite):
         # Updating bullets
         for bullet in self.bullets:
             bullet.update()
+            if bullet.y < 0:
+                self.bullets.remove(bullet)
         return not dead
