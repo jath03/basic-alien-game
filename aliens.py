@@ -5,6 +5,7 @@ from typing import List
 
 class Alien(Sprite):
     'A class to represent an individual alien'
+
     def __init__(self, window: pygame.Surface, idx: int):
         self.window = window
         self.idx = idx
@@ -28,6 +29,7 @@ class Alien(Sprite):
 
 class AlienManager:
     'A class to manage the aliens and their movement'
+
     def __init__(self, window: pygame.Surface, num: int = NUM_ALIENS):
         self.window = window
         self.alien_image = pygame.image.load("alien.png")
