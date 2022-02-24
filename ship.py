@@ -17,6 +17,7 @@ class Bullet(Sprite):
 
 class Ship(Sprite):
     'A class to represent the player'
+
     def __init__(self, window: pygame.Surface):
         self.window = window
         self.size = (60, 60)
@@ -42,7 +43,6 @@ class Ship(Sprite):
     def update(self, aliens: List["Alien"]) -> bool:
         # Checks if any aliens have reached the ship
         dead = check_collisions(self, aliens)
-        # Responding to user inputs
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
             self.x += SPEED/2
