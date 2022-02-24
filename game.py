@@ -42,6 +42,7 @@ class GameManager:
                             return True
                         elif event.key in (pygame.K_ESCAPE, pygame.K_q):
                             return False
+                pygame.time.wait(5)
         else:
             self.alien_mgr.reset()
             self.ship.reset()
